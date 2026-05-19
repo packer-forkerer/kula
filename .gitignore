@@ -6,6 +6,7 @@
 /data/
 /dist/
 /kula*
+/testing
 /config.yaml
 /gen-mock-data
 .~lock*

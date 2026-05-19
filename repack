@@ -1,9 +1,0 @@
-#!/bin/env bash
-
-
-if [ ! -d ../forker ];then
-    cd .. && git clone git@github.com:packer-forkerer/kula.git forker
-fi
-
-cp -fr ../forker/* .
-

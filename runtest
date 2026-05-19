@@ -1,0 +1,8 @@
+#!/bin/env bash
+
+if [[ -z "$CGO_ENABLED" ]]; then
+   export CGO_ENABLED=0
+fi
+
+mkdir -p testing && 
+go build -trimpath -ldflags="-s -w" -buildvcs=false -o kardiag ./cmd/kardiag/

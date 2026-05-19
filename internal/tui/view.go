@@ -48,7 +48,7 @@ func (m model) View() string {
 
 func (m model) renderHeader() string {
 	pipe := sHeaderPipe.Render(" │ ")
-	left := sLogo.Render(" KULA ")
+	left := sLogo.Render(" KARDIAG ")
 
 	if m.showSystemInfo && m.sample != nil {
 		hostname := m.sample.System.Hostname

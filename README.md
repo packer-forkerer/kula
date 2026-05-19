@@ -2,7 +2,7 @@
 
 <img width="128" height="128" alt="image" src="https://github.com/user-attachments/assets/77d5850a-c3a4-47fe-b33e-dcaeeb3c8e4d" />
 
-# K U L A
+# KARDIAG
 
 **Lightweight, self-contained Linux® server monitoring tool.**
 
@@ -11,8 +11,6 @@
 ![JS](https://img.shields.io/badge/some%20-js-orange?logo=javascript&logoColor=ffffff)
 ![Bash](https://img.shields.io/badge/and%20a%20pinch%20of-bash-green?logo=linux&logoColor=ffffff)
 [![License: GPL v3](https://img.shields.io/badge/License-AGPLv3-red.svg)](https://www.gnu.org/licenses/agpl-3.0)
-
-[🌏 Website](https://kula.ovh) | [👀 Demo](https://demo.kula.ovh/) | [🐋 Docker Hub](https://hub.docker.com/r/c0m4r/kula)
 
 Zero dependencies. No external databases. Single binary. Just deploy and go.
 
@@ -24,7 +22,7 @@ Zero dependencies. No external databases. Single binary. Just deploy and go.
 
 ## 📦 What It Does
 
-Kula collects system metrics every second by reading directly from `/proc` and `/sys`, 
+Kardiag collects system metrics every second by reading directly from `/proc` and `/sys`, 
 stores them in a built-in tiered ring-buffer storage engine, and serves them through a real-time Web UI dashboard and a terminal TUI.
 
 | Metric | What's Collected |
@@ -38,7 +36,7 @@ stores them in a built-in tiered ring-buffer storage engine, and serves them thr
 | **Disks** | Per-device I/O (read/write bytes/s, reads/s, writes/s IOPS); filesystem usage |
 | **System** | Uptime, entropy, clock sync, hostname, logged-in user count |
 | **Processes** | Running, sleeping, blocked, zombie counts |
-| **Self** | Kula's own CPU%, RSS memory, open file descriptors |
+| **Self** | Kardiag's own CPU%, RSS memory, open file descriptors |
 | **Thermal** | CPU, GPU and Disk temperatures |
 | **Battery** | /sys/class/power_supply - power supply / battery status |
 | **Containers** | Docker, podman, raw cgroups |
@@ -83,9 +81,9 @@ Note: Monitoring NVIDIA GPUs might require additional setup. Check [GPU monitori
 
 ### Storage Engine
 
-Kula is powered by a custom-built, high-performance **ring-buffer** storage system that writes metrics directly into fixed-size binary files. Because the files have a strict maximum capacity, new data seamlessly wraps around to overwrite the oldest entries. On startup, Kula restores the latest-sample cache and reconstructs any pending aggregation buffers so it can resume serving recent data and continue tier rollups after a restart.
+Kardiag is powered by a custom-built, high-performance **ring-buffer** storage system that writes metrics directly into fixed-size binary files. Because the files have a strict maximum capacity, new data seamlessly wraps around to overwrite the oldest entries. On startup, Kardiag restores the latest-sample cache and reconstructs any pending aggregation buffers so it can resume serving recent data and continue tier rollups after a restart.
 
-To maximize efficiency, Kula employs a multi-tiered architecture that intelligently downsamples older data:
+To maximize efficiency, Kardiag employs a multi-tiered architecture that intelligently downsamples older data:
 
 - **Tier 1** — Raw 1-second samples (default 250 MB)
 - **Tier 2** — 1-minute metrics aggregation (Avg/Min/Max) (default 150 MB)
@@ -94,7 +92,7 @@ To maximize efficiency, Kula employs a multi-tiered architecture that intelligen
 ### HTTP server
 
 The HTTP server on backend exposes a REST API and a WebSocket endpoint for live streaming. 
-Authentication is optional. When enabled, Kula uses Argon2id password hashing, secure session cookies, token-only session validation with sliding expiration, and hashed-at-rest session persistence. Authenticated API access can also use a bearer session token via the `Authorization` header.
+Authentication is optional. When enabled, Kardiag uses Argon2id password hashing, secure session cookies, token-only session validation with sliding expiration, and hashed-at-rest session persistence. Authenticated API access can also use a bearer session token via the `Authorization` header.
 
 ### Dashboard
 
@@ -112,7 +110,7 @@ it connects via WebSocket for live updates and falls back to history API for lon
 
 ### AI Assistant
 
-Kula features an AI assistant via [Ollama](https://github.com/ollama/ollama).
+Kardiag features an AI assistant via [Ollama](https://github.com/ollama/ollama).
 
 When Ollama is enabled in `config.yaml`, a 🤖 button appears in the dashboard header. The panel supports:
 
@@ -129,8 +127,8 @@ All AI inference runs locally through Ollama API.
 
 ## 💾 Installation
 
-Kula was built to have everything in one binary file. You can just upload it to your server 
-and not worry about installing anything else because Kula has no dependencies. It just works out of the box! 
+Kardiag was built to have everything in one binary file. You can just upload it to your server 
+and not worry about installing anything else because Kardiag has no dependencies. It just works out of the box! 
 It is a great tool when you need to quickly start real-time monitoring.
 
 Example installation methods for **amd64 (x86_64)** GNU/Linux.
@@ -222,7 +220,7 @@ cd kula
 
 ### Quick Start
 
-Starting Kula is as simple as running:
+Starting Kardiag is as simple as running:
 
 ```bash
 ./kula
@@ -256,7 +254,7 @@ See: [Prometheus metrics](https://github.com/c0m4r/kula/wiki/Prometheus-metrics)
 
 ### Health endpoints
 
-Kula exposes lightweight liveness endpoints at:
+Kardiag exposes lightweight liveness endpoints at:
 
 ```
 http://localhost:27960/health
@@ -279,7 +277,7 @@ kula is healthy
 # Add the output to config.yaml under web.auth
 ```
 
-When authentication is enabled, Kula issues a random session token after login, stores only its hash on disk, and validates requests by token expiry/validity rather than binding sessions to client IP or User-Agent.
+When authentication is enabled, Kardiag issues a random session token after login, stores only its hash on disk, and validates requests by token expiry/validity rather than binding sessions to client IP or User-Agent.
 
 ### Service Management
 
@@ -325,7 +323,7 @@ CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -buildvcs=false -o kula ./cmd/
 
 ### Updating Dependencies
 
-To safely update only the Go modules used by Kula to their latest minor/patch versions, and prune any unused dependencies:
+To safely update only the Go modules used by Kardiag to their latest minor/patch versions, and prune any unused dependencies:
 
 ```bash
 ./addons/go_modules_updates.py
@@ -388,7 +386,7 @@ docker compose -f addons/docker/docker-compose.yml up -d
 
 Privacy is a core pillar, not an afterthought.
 
-Kula is built for privacy-conscious infrastructure. It is a completely self-contained binary that requires no cloud connection and no third-party APIs. Designed to function perfectly in air-gapped networks, Kula never sends metadata to external servers, never serves advertisements, and requires no user registration. Your monitoring starts and ends on your infrastructure, exactly where it should be.
+Kardiag is built for privacy-conscious infrastructure. It is a completely self-contained binary that requires no cloud connection and no third-party APIs. Designed to function perfectly in air-gapped networks, Kardiag never sends metadata to external servers, never serves advertisements, and requires no user registration. Your monitoring starts and ends on your infrastructure, exactly where it should be.
 
 ---
 

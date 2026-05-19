@@ -12,7 +12,7 @@ import datetime
 import json
 from typing import Optional, Tuple, BinaryIO, Dict, Any, List
 
-MAGIC = b"KULA"
+MAGIC = b"KARDIAG"
 HEADER_SIZE = 64
 CODEC_V2 = 2
 

@@ -77,7 +77,7 @@ export function fetchConfig() {
             if (cfg.hostname) {
                 const hostnameEl = document.getElementById('hostname');
                 if (hostnameEl) hostnameEl.textContent = cfg.hostname;
-                document.title = `KULA - ${cfg.hostname}`;
+                document.title = `KARDIAG - ${cfg.hostname}`;
             }
             if (cfg.theme && !localStorage.getItem('kula_theme')) {
                 state.theme = cfg.theme;

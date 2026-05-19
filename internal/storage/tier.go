@@ -15,7 +15,7 @@ import (
 // Tier implements a single ring-buffer storage tier.
 // File format:
 //   Header (64 bytes):
-//     [0:4]   magic "KULA"
+//     [0:4]   magic "KARDIAG"
 //     [4:8]   reserved
 //     [8:16]  version (uint64)
 //     [16:24] max data size (uint64)
@@ -30,7 +30,7 @@ import (
 
 const (
 	headerSize    = 64
-	magicString   = "KULA"
+	magicString   = "KARDIAG"
 	version       = 1
 	codecVersion2 = 2
 )
